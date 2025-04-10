@@ -1,0 +1,8 @@
+**/__pycache__/
+.vscode/
+Logs/
+
+# Exclude specific ROS2 folders
+**/install
+**/build
+**/log
