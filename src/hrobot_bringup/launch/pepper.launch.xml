@@ -1,0 +1,13 @@
+<launch>
+    <let name="urdf_path" value="$(find-pkg-share hrobot_description)/urdf/pepper.urdf.xacro" />
+    <node pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
+    </node>
+
+    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+        <arg name="gz_args" value="-r -v 4 empty.sdf --physics-engine gz-physics-bullet-featherstone-plugin" />
+    </include>
+
+    <node pkg="ros_gz_sim" exec="create" args="-topic robot_description" />
+
+</launch>
