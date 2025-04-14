@@ -11,25 +11,11 @@ from launch_ros.parameter_descriptions import ParameterValue
 def generate_launch_description():
     # Paths
     description_pkg = FindPackageShare('hrobot_description')
-    urdf_path = os.path.join(description_pkg.find('hrobot_description'), 'urdf', 'pepper.urdf.xacro')
+    urdf_path = os.path.join(description_pkg.find('hrobot_description'), 'urdf', 'pepper_fixed.urdf.xacro')
     rviz_config_path = os.path.join(description_pkg.find('hrobot_description'), 'rviz', 'urdf_config.rviz')
 
     # Generate robot description from xacro
     robot_description = ParameterValue(Command(['xacro ', urdf_path]), value_type=str)
-
-    # Gazebo (Ignition/GZ) simulator launch
-    gazebo_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            PathJoinSubstitution([
-                FindPackageShare('ros_gz_sim'),
-                'launch',
-                'gz_sim.launch.py'
-            ])
-        ),
-        launch_arguments={
-            'gz_args': ['-r -v 4 empty.sdf --physics-engine gz-physics-bullet-featherstone-plugin']
-        }.items()
-    )
 
     # Robot state publisher node
     robot_state_publisher_node = Node(
@@ -52,24 +38,11 @@ def generate_launch_description():
         output="screen"
     )
 
-    # Spawn the robot into the Gazebo simulation
-    spawn_entity = TimerAction(
-        period=3.0,
-        actions=[
-            Node(
-                package='ros_gz_sim',
-                executable='create',
-                arguments=['-topic', 'robot_description', '-entity', 'pepper'],
-                output='screen'
-            )
-        ]
-    )
-
     # Return the full launch description
     return LaunchDescription([
-        gazebo_launch,
+        # gazebo_launch,
         robot_state_publisher_node,
         joint_state_publisher_gui_node,
         rviz2_node,
-        spawn_entity
+        # spawn_entity
     ])
