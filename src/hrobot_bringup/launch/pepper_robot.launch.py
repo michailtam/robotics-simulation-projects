@@ -9,7 +9,7 @@ from launch_ros.parameter_descriptions import ParameterValue
 def generate_launch_description():
     # Paths
     pkg_share_description = FindPackageShare(package='hrobot_description').find('hrobot_description')
-    file_urdf = os.path.join(pkg_share_description, 'urdf', 'pepper_robot.urdf.xacro')
+    file_urdf = os.path.join(pkg_share_description, 'urdf', 'pepper_robot_fixed.urdf.xacro')
     file_rviz_config = os.path.join(pkg_share_description, 'rviz', 'urdf_config.rviz')
 
     # Generate robot description from xacro
