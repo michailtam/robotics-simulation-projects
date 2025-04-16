@@ -1,7 +1,7 @@
 import os
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, TimerAction, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription, TimerAction, DeclareLaunchArgument, AppendEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
 from launch_ros.substitutions import FindPackageShare
@@ -9,6 +9,12 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    # Files
+    pkg_share_gazebo = FindPackageShare(package='hrobot_gazebo').find('hrobot_gazebo')
+    pkg_ros_gz_sim = FindPackageShare('ros_gz_sim').find('ros_gz_sim')
+    world_path = os.path.join(pkg_share_gazebo, 'worlds', 'ionic.world')
+    gazebo_models_path = os.path.join(pkg_share_gazebo, 'models')
+
     # Set the pose configuration variables
     x = LaunchConfiguration('x')
     y = LaunchConfiguration('y')
@@ -50,23 +56,20 @@ def generate_launch_description():
 
     gazebo_config_file = PathJoinSubstitution([
         FindPackageShare('hrobot_gazebo'), 
-        'config', 
-        'gazebo_bridge.yaml'])
-
+        'config',
+        'ros_gz_bridge.yaml'])
+    
+    # Set Gazebo model path
+    set_env_vars_resources = AppendEnvironmentVariable(
+        'GZ_SIM_RESOURCE_PATH',
+        gazebo_models_path)
+    
     # Gazebo (Ignition/GZ) simulator launch
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([
-                FindPackageShare('ros_gz_sim'),
-                'launch',
-                'gz_sim.launch.py'
-            ])
-        ),
-        launch_arguments={
-            'gz_args': ['-r -v 4 empty.sdf --physics-engine gz-physics-bullet-featherstone-plugin']
-        }.items()
-    )
-
+            os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
+        launch_arguments=[('gz_args', [f' -r -v 4 ', world_path, ' --physics-engine gz-physics-bullet-featherstone-plugin'])])
+        
     # Spawn the robot into the Gazebo simulation
     spawn_entity = TimerAction(
         period=3.0,
@@ -109,6 +112,7 @@ def generate_launch_description():
     ld.add_action(declare_roll_cmd)
     ld.add_action(declare_pitch_cmd)
     ld.add_action(declare_yaw_cmd)
+    ld.add_action(set_env_vars_resources)
     ld.add_action(gazebo_launch)
     ld.add_action(spawn_entity)
     ld.add_action(ros_gazebo_bridge)

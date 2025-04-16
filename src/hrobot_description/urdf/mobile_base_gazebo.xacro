@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <gazebo reference="WheelFR_link">
+        <mu1 value="0.8" />
+        <mu2 value="0.8" />
+    </gazebo>
+
     <gazebo reference="WheelB_link">
-        <mu1 value="0.1" />
-        <mu2 value="0.1" />
+        <mu1 value="0.8" />
+        <mu2 value="0.8" />
     </gazebo>
 
     <gazebo>
@@ -13,7 +18,11 @@
             <frame_id>odom</frame_id>
             <child_frame_id>base_footprint</child_frame_id>
             <wheel_separation>0.31</wheel_separation>
-            <wheel_radius>1.4</wheel_radius>
+            <wheel_radius>0.08</wheel_radius>
+            <min_velocity>-5</min_velocity>
+            <max_velocity>5</max_velocity>
+            <min_acceleration>-10</min_acceleration>
+            <max_acceleration>10</max_acceleration>
         </plugin>
     </gazebo>
 

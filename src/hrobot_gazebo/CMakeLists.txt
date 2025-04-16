@@ -7,8 +7,12 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ros_gz REQUIRED)
+find_package(ros_gz_bridge REQUIRED)
+find_package(ros_gz_sim REQUIRED)
+
 install(
-  DIRECTORY launch worlds models config
+  DIRECTORY config launch worlds
   DESTINATION share/${PROJECT_NAME}/
 )
 
