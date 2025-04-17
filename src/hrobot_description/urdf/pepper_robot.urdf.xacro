@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot name="pepper_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hrobot_description)/urdf/mobile_base_gazebo.xacro" />
 
   <link name="base_footprint" />
   
@@ -1268,12 +1269,11 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
   </link>
-  <joint name="WheelB" type="fixed">
+  <joint name="WheelB" type="continuous">
     <parent link="Tibia"/>
     <child link="WheelB_link"/>
     <origin rpy="0 0 0" xyz="-0.17 0 -0.264"/>
+    <axis xyz="0 1 0"/>
   </joint>
-
-  <xacro:include filename="$(find hrobot_description)/urdf/mobile_base_gazebo.xacro" />
 
 </robot>
