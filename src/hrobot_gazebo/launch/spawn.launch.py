@@ -8,12 +8,21 @@ from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
 
 
+def get_gazebo_model_path():
+    ''' Return the package model path (not the shared one, because this does not work) '''
+    return os.path.join(os.getcwd(), "src", "hrobot_gazebo", "models")
+
 def generate_launch_description():
     # Files
     pkg_share_gazebo = FindPackageShare(package='hrobot_gazebo').find('hrobot_gazebo')
     pkg_ros_gz_sim = FindPackageShare('ros_gz_sim').find('ros_gz_sim')
-    world_path = os.path.join(pkg_share_gazebo, 'worlds', 'ionic.world')
-    gazebo_models_path = os.path.join(pkg_share_gazebo, 'models')
+    world_path = os.path.join(pkg_share_gazebo, 'worlds', 'hospital.world')
+    gazebo_models_path = get_gazebo_model_path()
+    
+    # Set the Gazebo model path
+    set_env_vars_resources = AppendEnvironmentVariable(
+        'GZ_SIM_RESOURCE_PATH',
+        gazebo_models_path)
 
     # Set the pose configuration variables
     x = LaunchConfiguration('x')
@@ -59,16 +68,13 @@ def generate_launch_description():
         'config',
         'ros_gz_bridge.yaml'])
     
-    # Set Gazebo model path
-    set_env_vars_resources = AppendEnvironmentVariable(
-        'GZ_SIM_RESOURCE_PATH',
-        gazebo_models_path)
-    
     # Gazebo (Ignition/GZ) simulator launch
+    # Note: If the used world file does not contain a physics engine, add after the world_path the following plugin in code
+    # --physics-engine gz-physics-bullet-featherstone-plugin
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments=[('gz_args', [f' -r -v 4 ', world_path, ' --physics-engine gz-physics-bullet-featherstone-plugin'])])
+        launch_arguments=[('gz_args', [f' -r -v 4 ', world_path])])
         
     # Spawn the robot into the Gazebo simulation
     spawn_entity = TimerAction(
