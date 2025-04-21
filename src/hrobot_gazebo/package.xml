@@ -4,22 +4,20 @@
   <name>hrobot_gazebo</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="mi.tamvak@gmail.com">mikelap</maintainer>
-  <license>TODO: License declaration</license>
+  <maintainer email="mi.tamvak@gmail.com">Michail</maintainer>
+  <license>BSD-3-Clause</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
-  <depend>controller_manager</depend>
-  <depend>ros_gz</depend>
-  <depend>ros_gz_sim</depend>
-  <depend>ros_gz_bridge</depend>
-  <depend>gz_ros2_control</depend>
-  <depend>ros2_controllers</depend>
-  <depend>trajectory_msgs</depend>
-  <depend>gripper_controllers</depend>
+  <exec_depend>ros_gz</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_image</exec_depend>
+  <exec_depend>gz_ros2_control</exec_depend>
+  <exec_depend>gz_ros2_control_demos</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

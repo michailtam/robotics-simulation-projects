@@ -6,3 +6,6 @@ Logs/
 **/install
 **/build
 **/log
+
+# Exclude Gazebo folders
+#**/models
