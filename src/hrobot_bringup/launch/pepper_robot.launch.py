@@ -11,11 +11,11 @@ from launch.actions import DeclareLaunchArgument
 def generate_launch_description():
     # Paths
     pkg_share_description = FindPackageShare(package='hrobot_description').find('hrobot_description')
-    urdf_file = os.path.join(pkg_share_description, 'urdf', 'pepper_robot.urdf.xacro')
+    default_urdf_file = os.path.join(pkg_share_description, 'urdf', 'pepper_robot.urdf.xacro')
     default_rviz_config_file = os.path.join(pkg_share_description, 'rviz', 'urdf_config.rviz')
 
     # Generate robot description from xacro
-    robot_description = ParameterValue(Command(['xacro ', urdf_file]), value_type=str)
+    robot_description = ParameterValue(Command(['xacro ', default_urdf_file]), value_type=str)
 
     # Launch configuration variables
     use_joint_state_pub_gui = LaunchConfiguration('use_joint_state_pub_gui')
@@ -56,7 +56,7 @@ def generate_launch_description():
 
     declare_urdf_model_cmd = DeclareLaunchArgument(
         name='urdf_model',
-        default_value=urdf_file,
+        default_value=default_urdf_file,
         description='Full path to the RVIZ config file to use')
 
     # Robot state publisher

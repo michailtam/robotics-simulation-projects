@@ -13,7 +13,7 @@ find_package(ros2_controllers REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 
 install(
-  DIRECTORY launch config
+  DIRECTORY config launch robot
   DESTINATION share/${PROJECT_NAME}/
 )
 

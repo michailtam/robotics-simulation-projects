@@ -1,34 +1,114 @@
 controller_manager:
-  ros_parameters:
+  ros__parameters:
     update_rate: 100  # update_rate specifies how often (in Hz) the controllers should be updated.
+    use_sim_time: true
 
-    arm_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
- 
+    diff_controller:
+      type: diff_drive_controller/DiffDriveController
+
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
+
+    body_part_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
  
-  # Define the parameters for each controller
-arm_controller:
+# Define the parameters for each controller
+diff_controller:
+  ros__parameters:
+    publish_rate: 50.0
+
+    odom_frame_id: odom
+    base_frame_id: base_footprint
+
+    left_wheel_names: ["WheelFL"]
+    right_wheel_names: ["WheelFR"]
+
+    wheel_seperation: 0.31
+    wheel_radius: 0.08
+
+    use_stamped_vel: true
+
+    joints:
+      - WheelFL
+      - WheelFR
+
+    command_interfaces:
+      - velocity
+
+    state_interfaces:
+      - position
+      - velocity
+
+body_part_controller:
   ros__parameters:
     joints:
-      - link1_to_link2
-      - link2_to_link3
-      - link3_to_link4
-      - link4_to_link5
-      - link5_to_link6
-      - link6_to_link6_flange
- 
+      # Head
+      - HeadYaw
+      - HeadPitch
+      - HipRoll
+      - HipPitch
+      - KneePitch
+
+      # Left shoulder
+      - LShoulderPitch
+      - LShoulderRoll
+      - LElbowYaw
+      - LElbowRoll
+      - LWristYaw
+
+      # Left shoulder
+      - RShoulderPitch
+      - RShoulderRoll
+      - RElbowYaw
+      - RElbowRoll
+      - RWristYaw
+
+      # Left arm
+      - LHand
+      - LFinger42
+      - LFinger33
+      - LFinger21
+      - LFinger13
+      - LFinger32
+      - LFinger11
+      - LFinger22
+      - LFinger41
+      - LFinger12
+      - LFinger23
+      - LFinger43
+      - LFinger31
+      - LThumb1
+      - LThumb2
+      
+      # Right arm
+      - RHand
+      - RFinger41
+      - RFinger12
+      - RFinger31
+      - RFinger32
+      - RFinger22
+      - RFinger13
+      - RFinger21
+      - RFinger23
+      - RFinger11
+      - RFinger43
+      - RFinger42
+      - RFinger33
+      - RThumb1
+      - RThumb2
+  
+
     # The controller will expect position commands as input for each of these joints.
     command_interfaces:
       - position
  
-    # Tells the controller that it should expect to receive position data as the state
-    # feedback from the hardware interface.
+    # Receive position data as the state feedback from the hardware interface.
     state_interfaces:
       - position
+      - velocity
  
-    # If true, When set to true, the controller will not use any feedback from the system
+    # If true, the controller will not use any feedback from the system
     # (e.g., joint positions, velocities, efforts) to compute the control commands.
     open_loop_control: false
  
@@ -40,13 +120,3 @@ arm_controller:
  
     # Allow non-zero velocity at the end of the trajectory
     allow_nonzero_velocity_at_trajectory_end: true
- 
-gripper_action_controller:
-  ros__parameters:
-    joint: gripper_controller
-    action_monitor_rate: 20.0
-    goal_tolerance: 0.01
-    max_effort: 100.0
-    allow_stalling: false
-    stall_velocity_threshold: 0.001
-    stall_timeout: 1.0

@@ -35,7 +35,7 @@ def generate_launch_description():
     # Set default values
     declare_x_pos_cmd = DeclareLaunchArgument(
         name='x',
-        default_value='0.0',
+        default_value='-1.0',
         description='x-position')
 
     declare_y_pos_cmd = DeclareLaunchArgument(
