@@ -193,7 +193,7 @@
             <state_interface name="effort"/>
         </joint>
 
-        <joint name="LFinger42">
+        <!-- <joint name="LFinger42">
             <command_interface name="velocity">
                 <param name="min">-1</param>
                 <param name="max">1</param>
@@ -331,7 +331,7 @@
             <state_interface name="position"/>
             <state_interface name="velocity"/>
             <state_interface name="effort"/>
-        </joint>
+        </joint> -->
 
         <!-- Right hand -->
         <joint name="RHand">
@@ -344,7 +344,7 @@
             <state_interface name="effort"/>
         </joint>
 
-        <joint name="RFinger41">
+        <!-- <joint name="RFinger41">
             <command_interface name="velocity">
                 <param name="min">-1</param>
                 <param name="max">1</param>
@@ -482,7 +482,7 @@
             <state_interface name="position"/>
             <state_interface name="velocity"/>
             <state_interface name="effort"/>
-        </joint>
+        </joint> -->
 
     </ros2_control>
 
