@@ -35,12 +35,12 @@ def generate_launch_description():
     # Set default values
     declare_x_pos_cmd = DeclareLaunchArgument(
         name='x',
-        default_value='-1.0',
+        default_value='0.0',
         description='x-position')
 
     declare_y_pos_cmd = DeclareLaunchArgument(
         name='y',
-        default_value='0.0',
+        default_value='3.0',
         description='y-position')
     
     declare_z_pos_cmd = DeclareLaunchArgument(
@@ -60,7 +60,7 @@ def generate_launch_description():
 
     declare_yaw_cmd = DeclareLaunchArgument(
         name='yaw',
-        default_value='0.0',
+        default_value='-1.57',
         description='yaw angle of initial orientation in radians')
 
     gazebo_config_file = PathJoinSubstitution([

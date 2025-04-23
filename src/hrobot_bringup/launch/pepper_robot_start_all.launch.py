@@ -5,14 +5,12 @@ from launch.actions import IncludeLaunchDescription, RegisterEventHandler
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
-from launch.event_handlers import OnProcessExit
 
 
 def generate_launch_description():
     # Paths of the shared packages and files
     pkg_share_bringup = FindPackageShare(package='hrobot_bringup').find('hrobot_bringup')
     pkg_share_gazebo = FindPackageShare(package='hrobot_gazebo').find('hrobot_gazebo')
-    pkg_share_kinematics = FindPackageShare(package='hrobot_kinematics').find('hrobot_kinematics')
     
     # Executes the robot state publisher, joint state publisher and rviz 
     launch_robot = IncludeLaunchDescription(
@@ -34,7 +32,7 @@ def generate_launch_description():
     load_ros2_controllers = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([
-                pkg_share_kinematics, 
+                pkg_share_bringup, 
                 'launch', 
                 'load_ros2_controllers.launch.py'])))
 

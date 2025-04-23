@@ -1,0 +1,65 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000
+    use_sim_time: true
+
+    diff_controller:
+      type: diff_drive_controller/DiffDriveController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    head_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    
+    upper_body_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    lower_body_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+diff_controller:
+  ros__parameters:
+    publish_rate: 50.0
+    odom_frame_id: odom
+    base_frame_id: base_footprint
+    left_wheel_names: ["WheelFL"]
+    right_wheel_names: ["WheelFR"]
+    wheel_separation: 0.31
+    wheel_radius: 0.08
+    use_stamped_vel: true
+    joints: [WheelFL, WheelFR]
+    command_interfaces: [velocity]
+    state_interfaces: [position, velocity]
+    open_loop_control: false
+    allow_integration_in_goal_trajectories: true
+    allow_nonzero_velocity_at_trajectory_end: true
+
+head_controller:
+  ros__parameters:
+    joints: [HeadYaw, HeadPitch]
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+    open_loop_control: false
+    allow_integration_in_goal_trajectories: true
+    allow_nonzero_velocity_at_trajectory_end: true
+
+upper_body_controller:
+  ros__parameters:
+    joints: [LShoulderPitch, LShoulderRoll, RShoulderPitch, RShoulderRoll,
+             LElbowYaw, LElbowRoll, RElbowYaw, RElbowRoll,
+             LWristYaw, RWristYaw]
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+    open_loop_control: false
+    allow_integration_in_goal_trajectories: true
+    allow_nonzero_velocity_at_trajectory_end: true
+
+lower_body_controller:
+  ros__parameters:
+    joints: [HipRoll, HipPitch, KneePitch]
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+    open_loop_control: false
+    allow_integration_in_goal_trajectories: true
+    allow_nonzero_velocity_at_trajectory_end: true
