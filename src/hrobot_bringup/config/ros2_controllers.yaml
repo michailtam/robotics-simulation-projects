@@ -3,11 +3,11 @@ controller_manager:
     update_rate: 1000
     use_sim_time: true
 
-    diff_controller:
-      type: diff_drive_controller/DiffDriveController
-
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
+
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
 
     head_controller:
       type: joint_trajectory_controller/JointTrajectoryController
@@ -18,7 +18,9 @@ controller_manager:
     lower_body_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-diff_controller:
+
+# Settings for each controller
+diff_drive_controller:
   ros__parameters:
     publish_rate: 50.0
     odom_frame_id: odom
@@ -31,35 +33,40 @@ diff_controller:
     joints: [WheelFL, WheelFR]
     command_interfaces: [velocity]
     state_interfaces: [position, velocity]
-    open_loop_control: false
-    allow_integration_in_goal_trajectories: true
-    allow_nonzero_velocity_at_trajectory_end: true
+    open_loop: false
 
 head_controller:
   ros__parameters:
     joints: [HeadYaw, HeadPitch]
     command_interfaces: [position]
-    state_interfaces: [position, velocity]
-    open_loop_control: false
-    allow_integration_in_goal_trajectories: true
-    allow_nonzero_velocity_at_trajectory_end: true
-
+    state_interfaces: [position]
+    constraints:
+      goal_time: 0.5
+      stopped_velocity_tolerance: 0.02
+    open_loop: false
+    
 upper_body_controller:
   ros__parameters:
     joints: [LShoulderPitch, LShoulderRoll, RShoulderPitch, RShoulderRoll,
              LElbowYaw, LElbowRoll, RElbowYaw, RElbowRoll,
              LWristYaw, RWristYaw]
     command_interfaces: [position]
-    state_interfaces: [position, velocity]
-    open_loop_control: false
-    allow_integration_in_goal_trajectories: true
-    allow_nonzero_velocity_at_trajectory_end: true
+    state_interfaces: [position]
+    constraints:
+      goal_time: 0.5
+      stopped_velocity_tolerance: 0.02
+    state_publish_rate: 50.0       # Hz
+    action_monitor_rate: 20.0      # Hz
+    open_loop: false
 
 lower_body_controller:
   ros__parameters:
     joints: [HipRoll, HipPitch, KneePitch]
     command_interfaces: [position]
-    state_interfaces: [position, velocity]
-    open_loop_control: false
-    allow_integration_in_goal_trajectories: true
-    allow_nonzero_velocity_at_trajectory_end: true
+    state_interfaces: [position]
+    constraints:
+      goal_time: 0.75
+      stopped_velocity_tolerance: 0.02
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    open_loop: false

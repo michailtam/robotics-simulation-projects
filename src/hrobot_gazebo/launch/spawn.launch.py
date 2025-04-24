@@ -93,6 +93,7 @@ def generate_launch_description():
                     '-P', pitch,
                     '-Y', yaw
                 ],
+                parameters=[{'use_sim_time': True}],
                 output='screen'
             )
         ]

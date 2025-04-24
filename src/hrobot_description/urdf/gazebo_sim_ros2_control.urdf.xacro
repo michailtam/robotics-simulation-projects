@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Hardware interfaces -->
+    <gazebo>
+        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
+            <parameters>$(find hrobot_bringup)/config/ros2_controllers.yaml</parameters>
+            <controller_manager_node_name>controller_manager</controller_manager_node_name>
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+        </plugin>
+    </gazebo>
+
     <gazebo reference="Neck">
+        <plugin filename="gz-sim-joint-trajectory-system" name="gz::sim::systems::JointTrajectoryController">
+            <topic>/joint_states</topic>
+            <joint_name>HeadYaw</joint_name>
+        </plugin>
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
     </gazebo>
@@ -231,30 +250,18 @@
     </gazebo>
 
     <gazebo reference="WheelFL_link">
-        <mu1>0.000002</mu1>
-        <mu2>0.000002</mu2>
+        <mu1>0.8</mu1>
+        <mu2>0.8</mu2>
     </gazebo>
 
     <gazebo reference="WheelFR_link">
-        <mu1>0.000002</mu1>
-        <mu2>0.000002</mu2>
+        <mu1>0.8</mu1>
+        <mu2>0.8</mu2>
     </gazebo>
 
     <gazebo reference="WheelB_link">
-        <mu1>0.000002</mu1>
-        <mu2>0.000002</mu2>
-    </gazebo>
-
-    <!-- Hardware interfaces -->
-    <gazebo>
-        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
-            <parameters>$(find hrobot_bringup)/config/ros2_controllers.yaml</parameters>
-            <controller_manager_node_name>controller_manager</controller_manager_node_name>
-        </plugin>
-
-        <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
-            <render_engine>ogre2</render_engine>
-        </plugin>
+        <mu1>0.8</mu1>
+        <mu2>0.8</mu2>
     </gazebo>
  
     <gazebo>
@@ -282,16 +289,8 @@
             <topic>joint_states</topic>
             <joint_name>WheelFL</joint_name>
             <joint_name>WheelFR</joint_name>
-
-
         </plugin>
 
-        <!-- Joint trajectory controller -->
-        <!-- <plugin filename="gz-sim-joint-trajectory-controller-system" name="gz::sim::systems::JointTrajectoryController">
-            <topic></topic>
-            <joint_name></joint_name>
-            <joint_name></joint_name>
-        </plugin> -->
     </gazebo>
 
 </robot>
