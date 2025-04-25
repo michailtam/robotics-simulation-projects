@@ -40,12 +40,12 @@ def generate_launch_description():
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         name='use_sim_time',
-        default_value='false',
+        default_value='true',
         description='Use simulation (Gazebo) clock if true')
     
     declare_use_rviz_cmd = DeclareLaunchArgument(
         name='use_rviz',
-        default_value='false',
+        default_value='true',
         choices=['true', 'false'],
         description='Enable the joint state publisher')
 

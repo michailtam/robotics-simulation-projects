@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<robot name="pepper_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <ros2_control name="hospital_robot_hardware_interface" type="system">
+        <hardware>
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </hardware>
+
+        <!-- Left wheel -->
+        <joint name="WheelFL">
+            <command_interface name="velocity"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <!-- Right wheel -->
+        <joint name="WheelFR">
+            <command_interface name="velocity"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <!-- Head -->
+        <joint name="HeadYaw">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="HeadPitch">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <!-- Hip -->
+        <joint name="HipRoll">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="HipPitch">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <!-- Knee -->
+        <joint name="KneePitch">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <!-- Left arm -->
+        <joint name="LShoulderPitch">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="LShoulderRoll">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        
+        <joint name="LElbowYaw">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="LElbowRoll">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        
+        <joint name="LWristYaw">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        
+        <!-- Right arm -->
+        <joint name="RShoulderPitch">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="RShoulderRoll">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        
+        <joint name="RElbowYaw">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="RElbowRoll">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        
+        <joint name="RWristYaw">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+        
+        <!-- Left hand -->
+        <joint name="LHand">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <!-- Right hand -->
+        <joint name="RHand">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+    </ros2_control>
+
+</robot>

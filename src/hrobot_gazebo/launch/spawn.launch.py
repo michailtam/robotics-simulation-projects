@@ -91,7 +91,8 @@ def generate_launch_description():
                     '-z', z,
                     '-R', roll,
                     '-P', pitch,
-                    '-Y', yaw
+                    '-Y', yaw,
+                    '-allow_renaming', 'true'
                 ],
                 parameters=[{'use_sim_time': True}],
                 output='screen'

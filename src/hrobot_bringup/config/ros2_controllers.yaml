@@ -23,17 +23,18 @@ controller_manager:
 diff_drive_controller:
   ros__parameters:
     publish_rate: 50.0
+
     odom_frame_id: odom
     base_frame_id: base_footprint
+    
     left_wheel_names: ["WheelFL"]
     right_wheel_names: ["WheelFR"]
+    
     wheel_separation: 0.31
     wheel_radius: 0.08
+    
     use_stamped_vel: true
-    joints: [WheelFL, WheelFR]
-    command_interfaces: [velocity]
-    state_interfaces: [position, velocity]
-    open_loop: false
+    enable_odom_tf: true
 
 head_controller:
   ros__parameters:

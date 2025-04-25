@@ -16,6 +16,7 @@
   <exec_depend>hrobot_gazebo</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
   <exec_depend>rviz2</exec_depend>
 
   <export>
