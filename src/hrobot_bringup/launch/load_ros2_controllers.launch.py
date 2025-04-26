@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess, RegisterEventHandler
+from launch.actions import RegisterEventHandler
 from launch.substitutions import PathJoinSubstitution
 from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
@@ -50,17 +50,6 @@ class Controllers:
                 previous_spawner = current_spawner
         return spawners
 
-    def activate_controllers(controllers):
-        activated = []
-        for controller in controllers:
-            activated.append(
-                ExecuteProcess(
-                cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', controller],
-                output='screen')
-            )
-        return activated
-
-
 def generate_launch_description():
 
     controller_file = PathJoinSubstitution(
@@ -79,7 +68,4 @@ def generate_launch_description():
         ld.add_action(controller)
     ld.add_action(LogInfo(msg=ctrls.js_broadcaster_msg))
 
-    # for controller in activated_controllers:
-    #     ld.add_action(controller)
-    
     return ld

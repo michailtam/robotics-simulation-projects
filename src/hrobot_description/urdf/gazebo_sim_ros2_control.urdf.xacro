@@ -2,10 +2,6 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <gazebo reference="Neck">
-        <plugin filename="gz-sim-joint-trajectory-system" name="gz::sim::systems::JointTrajectoryController">
-            <topic>/joint_states</topic>
-            <joint_name>HeadYaw</joint_name>
-        </plugin>
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
     </gazebo>
@@ -251,21 +247,12 @@
         <kp>1000000</kp>
         <kd>1000</kd>
     </gazebo>
- 
-    <!-- Joint state publisher -->
-    <gazebo>
-        <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
-            <topic>joint_states</topic>
-            <joint_name>WheelFL</joint_name>
-            <joint_name>WheelFR</joint_name>
-        </plugin>
-    </gazebo>
 
-    <!-- Hardware interfaces simulated by Gazebo (not ros2_control)-->
+    <!-- Enables the communication with ros2_control -->
     <gazebo>
         <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
             <parameters>$(find hrobot_bringup)/config/ros2_controllers.yaml</parameters>
-            <!-- <controller_manager_node_name>controller_manager</controller_manager_node_name> -->
+            <controller_manager_node_name>controller_manager</controller_manager_node_name>
         </plugin>
     </gazebo>
 

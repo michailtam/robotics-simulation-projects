@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 1000
+    update_rate: 100
     use_sim_time: true
 
     joint_state_broadcaster:
@@ -33,8 +33,9 @@ diff_drive_controller:
     wheel_separation: 0.31
     wheel_radius: 0.08
     
-    use_stamped_vel: true
-    enable_odom_tf: true
+    use_stamped_vel: false
+    enable_odom_tf: false
+    open_loop: false  # Closed-loop control (feedback is used to adjust velocity and positions)
 
 head_controller:
   ros__parameters:
@@ -44,7 +45,7 @@ head_controller:
     constraints:
       goal_time: 0.5
       stopped_velocity_tolerance: 0.02
-    open_loop: false
+    open_loop: true
     
 upper_body_controller:
   ros__parameters:
