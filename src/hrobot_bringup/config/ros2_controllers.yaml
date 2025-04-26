@@ -27,6 +27,9 @@ diff_drive_controller:
     odom_frame_id: odom
     base_frame_id: base_footprint
     
+    command_interfaces: [velocity]
+    state_interfaces: [position, velocity]
+
     left_wheel_names: ["WheelFL"]
     right_wheel_names: ["WheelFR"]
     
@@ -45,7 +48,18 @@ head_controller:
     constraints:
       goal_time: 0.5
       stopped_velocity_tolerance: 0.02
-    open_loop: true
+    state_publish_rate: 50.0       # Hz
+    action_monitor_rate: 20.0      # Hz
+    open_loop: false
+
+    # When set to true, it allows the controller to integrate the trajectory goals it receives.
+    # This means that if the goal trajectory only specifies positions, the controller will
+    # numerically integrate the positions to compute the velocities and accelerations required
+    # to follow the trajectory.
+    allow_integration_in_goal_trajectories: true
+ 
+    # Allow non-zero velocity at the end of the trajectory
+    allow_nonzero_velocity_at_trajectory_end: true
     
 upper_body_controller:
   ros__parameters:
@@ -60,6 +74,8 @@ upper_body_controller:
     state_publish_rate: 50.0       # Hz
     action_monitor_rate: 20.0      # Hz
     open_loop: false
+    allow_integration_in_goal_trajectories: true
+    allow_nonzero_velocity_at_trajectory_end: true
 
 lower_body_controller:
   ros__parameters:
@@ -72,3 +88,5 @@ lower_body_controller:
     state_publish_rate: 50.0
     action_monitor_rate: 20.0
     open_loop: false
+    allow_integration_in_goal_trajectories: true
+    allow_nonzero_velocity_at_trajectory_end: true
