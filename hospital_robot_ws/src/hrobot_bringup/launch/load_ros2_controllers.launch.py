@@ -19,7 +19,6 @@ class Controllers:
         """
         self._body_controllers = [
             'joint_state_broadcaster',
-            'diff_drive_controller',
             'lower_body_controller', 
             'upper_body_controller', 
             'head_controller']
@@ -34,6 +33,7 @@ class Controllers:
                 package='controller_manager',
                 executable='spawner',
                 arguments=[controller, '--param-file', self._ros2_control_file])
+            
             if previous_spawner:
                 # Chain spawners sequentially
                 spawners.append(
@@ -48,6 +48,7 @@ class Controllers:
                 # First spawner
                 spawners.append(current_spawner)
                 previous_spawner = current_spawner
+
         return spawners
 
 def generate_launch_description():
@@ -59,6 +60,14 @@ def generate_launch_description():
     ctrls = Controllers(controller_file)
 
     controllers = ctrls.create_controllers()
+
+    diff_drive_controller_cmd = Node(
+            package='controller_manager',
+            executable='spawner',
+            name='controller_manager',
+            # remappings=[('/diff_drive_controller/cmd_vel', '/cmd_vel')],  # Remap here
+            arguments=['diff_drive_controller', '--param-file', controller_file]
+        )
     
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -66,6 +75,6 @@ def generate_launch_description():
     # Add the actions to the launch description in sequence
     for controller in controllers:
         ld.add_action(controller)
-    ld.add_action(LogInfo(msg=ctrls.js_broadcaster_msg))
+    ld.add_action(diff_drive_controller_cmd)
 
     return ld
