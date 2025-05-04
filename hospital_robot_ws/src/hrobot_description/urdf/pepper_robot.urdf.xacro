@@ -2,6 +2,11 @@
 <robot name="pepper_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find hrobot_description)/urdf/gazebo_sim_ros2_control.urdf.xacro" />
   <xacro:include filename="$(find hrobot_description)/urdf/pepper_robot_ros2_control.xacro" />
+  <xacro:include filename="$(find hrobot_description)/urdf/pepper_robot_sensors.xacro" />
+
+  <material name="light_blue">
+      <color rgba="0.0 0.3 1.0 1.0"/>
+  </material>
 
   <link name="base_footprint" />
   
@@ -9,7 +14,7 @@
   <joint name="base_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="base_link"/>
-    <origin rpy="0 0 0" xyz="0 0 -0.1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
 
   <joint name="HeadYaw" type="revolute">
@@ -73,6 +78,29 @@
     <axis xyz="-1.0 0 0"/>
     <limit effort="10.1884" lower="-0.514872" upper="0.514872" velocity="2.27032"/>
   </joint>
+
+  <xacro:lidar_sensor frame_id="Lidar_Sensor" parent="base_link" xyz_offset="0 0.05 0" rpy_offset="1.57 0 0"/>
+  <xacro:rgbd_camera camera_name="RGBDCamera" parent="Head" xyz_offset="0.105 0 0.12" rpy_offset="0 0.1 0"/>
+
+  <!-- <link name="Mouth">
+    <visual>
+      <geometry>
+        <box size="0.038 0.04 0.017"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.01 0.05 0.05"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+  </link>
+  <joint name="Mouth_joint" type="fixed">
+    <parent link="Head"/>
+    <child link="Mouth"/>
+    <origin rpy="0 0.4 0" xyz="0.08 0 0.06"/>
+  </joint> -->
 
   <link name="Hip">
     <visual>

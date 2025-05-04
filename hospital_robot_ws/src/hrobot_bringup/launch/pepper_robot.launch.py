@@ -11,8 +11,9 @@ from launch.actions import DeclareLaunchArgument
 def generate_launch_description():
     # Paths
     pkg_share_description = FindPackageShare(package='hrobot_description').find('hrobot_description')
+    pkg_share_bringup = FindPackageShare(package='hrobot_bringup').find('hrobot_bringup')
     default_urdf_file = os.path.join(pkg_share_description, 'urdf', 'pepper_robot.urdf.xacro')
-    default_rviz_config_file = os.path.join(pkg_share_description, 'rviz', 'urdf_config.rviz')
+    default_rviz_config_file = os.path.join(pkg_share_bringup, 'rviz', 'temp_config.rviz')
 
     # Generate robot description from xacro
     robot_description = ParameterValue(Command(['xacro ', default_urdf_file]), value_type=str)

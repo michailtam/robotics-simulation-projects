@@ -36,18 +36,6 @@ def generate_launch_description():
                 'launch', 
                 'load_ros2_controllers.launch.py']),
             ))
-    
-    # # Includes optimizations to minimize latency and bandwidth when streaming image data
-    # start_gazebo_ros_image_bridge_cmd = Node(
-    #     package='ros_gz_image',
-    #     executable='image_bridge',
-    #     arguments=[
-    #         '/cam_1/image'
-    #     ],
-    #     remappings=[
-    #         ('/cam_1/image', '/cam_1/color/image_raw')
-    #     ])
-
 
     # Return the full launch description
     ld = LaunchDescription()

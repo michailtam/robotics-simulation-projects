@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-
+    
     <gazebo reference="Neck">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
@@ -254,6 +254,65 @@
             <parameters>$(find hrobot_bringup)/config/ros2_controllers.yaml</parameters>
             <controller_manager_node_name>controller_manager</controller_manager_node_name>
         </plugin>
+    </gazebo>
+
+    <!-- RGBD camera -->
+    <gazebo reference="RGBDCamera_link">
+        <sensor name="rgbd_cam" type="rgbd_camera">
+            <camera>
+                <horizontal_fov>1.5184</horizontal_fov>
+                <image>
+                    <width>424</width>
+                    <height>240</height>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>1.5</far>
+                </clip>
+            </camera>
+            <always_on>1</always_on>
+            <gz_frame_id>RGBDCamera_link</gz_frame_id>
+            <topic>scan</topic>
+            <update_rate>15.0</update_rate>
+            <visualize>true</visualize>
+        </sensor>
+    </gazebo>
+
+    <!-- Lidar sensor-->
+    <gazebo reference="LidarSensor_link">
+        <material>
+            <ambient>'0.1 0.1 0.1 1'</ambient>
+            <diffuse>'0.1 0.1 0.1 1'</diffuse>
+            <specular>'0.1 0.1 0.1 1'</specular>
+        </material>
+        <sensor name="lidar_Sensor" type="gpu_lidar">
+            <topic>scan</topic>
+            <update_rate>10</update_rate>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-3.14159</min_angle>
+                        <max_angle>3.14159</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>1</samples>
+                        <resolution>1</resolution>
+                        <min_angle>0</min_angle>
+                        <max_angle>0</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.2</min>
+                    <max>25.0</max>
+                    <resolution>0.225</resolution>
+                </range>
+            </ray>
+            <gz_frame_id>LidarSensor_link</gz_frame_id>
+        </sensor>
     </gazebo>
 
 </robot>
