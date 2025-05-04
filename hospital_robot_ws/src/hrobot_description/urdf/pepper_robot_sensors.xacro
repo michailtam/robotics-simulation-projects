@@ -169,42 +169,42 @@
         <xacro:property name="ixx_iyy" value="${(mass/12) * (3 * radius * radius + lidar_height * lidar_height)}" />
         <xacro:property name="izz" value="${(mass/2) * (radius * radius)}" />
 
-        <link name="${frame_id}">
-        <visual>
-            <origin xyz="-0.05 0 -0.029" rpy="1.57 0 0.8"/>
+        <link name="${frame_id}_link">
+            <visual>
+                <origin xyz="-0.05 0 -0.029" rpy="1.57 0 0.8"/>
+                <geometry>
+                    <mesh filename="${mesh_file}" scale="${mesh_scale}"/>
+                </geometry>
+                <material name="${material_name}">
+                <color rgba="${material_color}"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="${collision_xyz_offset}" rpy="${collision_rpy_offset}"/>
             <geometry>
-                <mesh filename="${mesh_file}" scale="${mesh_scale}"/>
+                <cylinder radius="${lidar_width/2}" length="${lidar_height}"/>
             </geometry>
-            <material name="${material_name}">
-            <color rgba="${material_color}"/>
-            </material>
-        </visual>
-        <collision>
-            <origin xyz="${collision_xyz_offset}" rpy="${collision_rpy_offset}"/>
-        <geometry>
-            <cylinder radius="${lidar_width/2}" length="${lidar_height}"/>
-        </geometry>
-        </collision>
-        <inertial>
-            <mass value="${mass}" />
-            <origin xyz="${inertial_xyz_offset}" rpy="${inertial_rpy_offset}"/>
-            <inertia
-            ixx="${ixx_iyy}"
-            ixy="0.0"
-            ixz="0.0"
-            iyy="${ixx_iyy}"
-            iyz="0.0"
-            izz="${izz}" />
-        </inertial>
+            </collision>
+            <inertial>
+                <mass value="${mass}" />
+                <origin xyz="${inertial_xyz_offset}" rpy="${inertial_rpy_offset}"/>
+                <inertia
+                ixx="${ixx_iyy}"
+                ixy="0.0"
+                ixz="0.0"
+                iyy="${ixx_iyy}"
+                iyz="0.0"
+                izz="${izz}" />
+            </inertial>
         </link>
 
         <joint name="${frame_id}_joint" type="fixed">
             <parent link="${parent}"/>
-            <child link="${frame_id}" />
+            <child link="${frame_id}_link" />
             <origin xyz="${xyz_offset}" rpy="${rpy_offset}"/>
         </joint>
 
-  </xacro:macro>
+    </xacro:macro>
 
     <!-- IMU sensor -->
     <xacro:macro name="imu_sensor" params="

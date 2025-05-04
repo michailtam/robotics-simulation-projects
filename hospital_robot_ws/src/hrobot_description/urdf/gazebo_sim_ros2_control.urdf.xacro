@@ -256,6 +256,18 @@
         </plugin>
     </gazebo>
 
+    <!-- Enables navigation
+    <gazebo>
+        <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+            <left_joint>WheelFL</left_joint>
+            <right_joint>WheelFR</right_joint>
+            <wheel_separation>0.31</wheel_separation>
+            <wheel_radius>0.08</wheel_radius>
+            <odom_publish_frequency>1</odom_publish_frequency>
+            <topic>cmd_vel</topic>
+        </plugin>
+    </gazebo> -->
+
     <!-- RGBD camera -->
     <gazebo reference="RGBD_Camera_link">
         <sensor name="rgbd_cam" type="rgbd_camera">
@@ -280,17 +292,12 @@
 
     <!-- Lidar sensor -->
     <gazebo reference="Lidar_Sensor_link">
-        <material>
-            <ambient>'0.1 0.1 0.1 1'</ambient>
-            <diffuse>'0.1 0.1 0.1 1'</diffuse>
-            <specular>'0.1 0.1 0.1 1'</specular>
-        </material>
-        <sensor name="lidar_Sensor" type="gpu_lidar">
+        <sensor name="gpu_lidar" type="gpu_lidar">
             <topic>scan</topic>
             <update_rate>10</update_rate>
             <always_on>true</always_on>
             <visualize>true</visualize>
-            <ray>
+            <lidar>
                 <scan>
                     <horizontal>
                         <samples>720</samples>
@@ -300,9 +307,9 @@
                     </horizontal>
                     <vertical>
                         <samples>1</samples>
-                        <resolution>1</resolution>
-                        <min_angle>0</min_angle>
-                        <max_angle>0</max_angle>
+                        <resolution>0.1</resolution>
+                        <min_angle>0.0</min_angle>
+                        <max_angle>0.0</max_angle>
                     </vertical>
                 </scan>
                 <range>
@@ -310,8 +317,8 @@
                     <max>25.0</max>
                     <resolution>0.225</resolution>
                 </range>
-            </ray>
-            <gz_frame_id>Lidar_Sensor_link</gz_frame_id>
+                <frame_id>/Lidar_Sensor_link</frame_id>
+            </lidar>
         </sensor>
     </gazebo>
 
@@ -325,7 +332,7 @@
         <sensor name="imu_sensor" type="imu">
             <topic>imu/data</topic>
             <update_rate>15.0</update_rate>
-            <always_on>true</always_on>
+            <always_on>1</always_on>
             <visualize>false</visualize>
             <gz_frame_id>IMU_link</gz_frame_id>
         </sensor>

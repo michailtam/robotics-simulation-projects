@@ -61,13 +61,13 @@ def generate_launch_description():
 
     controllers = ctrls.create_controllers()
 
-    diff_drive_controller_cmd = Node(
-            package='controller_manager',
-            executable='spawner',
-            name='controller_manager',
-            # remappings=[('/diff_drive_controller/cmd_vel', '/cmd_vel')],  # Remap here
-            arguments=['diff_drive_controller', '--param-file', controller_file]
-        )
+    # diff_drive_controller_cmd = Node(
+    #         package='controller_manager',
+    #         executable='spawner',
+    #         name='controller_manager',
+    #         # remappings=[('/diff_drive_controller/cmd_vel', '/cmd_vel')],  # Remap here
+    #         arguments=['diff_drive_controller', '--param-file', controller_file]
+    #     )
     
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -75,6 +75,6 @@ def generate_launch_description():
     # Add the actions to the launch description in sequence
     for controller in controllers:
         ld.add_action(controller)
-    ld.add_action(diff_drive_controller_cmd)
+    # ld.add_action(diff_drive_controller_cmd)
 
     return ld

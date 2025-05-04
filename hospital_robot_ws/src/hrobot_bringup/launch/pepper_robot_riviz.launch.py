@@ -19,7 +19,10 @@ def generate_launch_description():
     robot_description = ParameterValue(Command(['xacro ', default_urdf_file]), value_type=str)
 
     # Launch configuration variables
+    use_joint_state_pub_gui = LaunchConfiguration('use_joint_state_pub_gui')
+    use_joint_state_pub = LaunchConfiguration('use_joint_state_pub')
     rviz_config_file = LaunchConfiguration('rviz_config_file')
+    # urdf_model = LaunchConfiguration('urdf_model')
     use_rviz = LaunchConfiguration('use_rviz')
     use_sim_time = LaunchConfiguration('use_sim_time')
 
@@ -68,6 +71,22 @@ def generate_launch_description():
             'use_sim_time': use_sim_time
             }])
 
+    # Joint state publisher
+    joint_state_publisher_node = Node(
+        package="joint_state_publisher",
+        executable="joint_state_publisher",
+        name='joint_state_publisher',
+        output='screen',
+        condition=IfCondition(use_joint_state_pub))
+
+    # Joint state publisher GUI
+    joint_state_publisher_node_gui = Node(
+        package="joint_state_publisher_gui",
+        executable="joint_state_publisher_gui",
+        name='joint_state_publisher_gui',
+        output='screen',
+        condition=IfCondition(use_joint_state_pub_gui))
+
     # RViz2 visualization
     rviz2_node = Node(
         package="rviz2",
@@ -87,6 +106,8 @@ def generate_launch_description():
     ld.add_action(declare_rviz_config_file_cmd)
     ld.add_action(declare_urdf_model_cmd)
     ld.add_action(robot_state_publisher_node)
+    ld.add_action(joint_state_publisher_node)
+    ld.add_action(joint_state_publisher_node_gui)
     ld.add_action(rviz2_node)
 
     return ld
