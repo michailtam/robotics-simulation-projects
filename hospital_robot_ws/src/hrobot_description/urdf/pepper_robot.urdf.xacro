@@ -79,8 +79,9 @@
     <limit effort="10.1884" lower="-0.514872" upper="0.514872" velocity="2.27032"/>
   </joint>
 
-  <xacro:lidar_sensor frame_id="Lidar_Sensor" parent="base_link" xyz_offset="0 0.05 0" rpy_offset="1.57 0 0"/>
-  <xacro:rgbd_camera camera_name="RGBDCamera" parent="Head" xyz_offset="0.105 0 0.12" rpy_offset="0 0.1 0"/>
+  <xacro:lidar_sensor frame_id="Lidar_Sensor" parent="base_link" xyz_offset="0 0 0.07" rpy_offset="0 0 0"/>
+  <xacro:rgbd_camera camera_name="RGBD_Camera" parent="Head" xyz_offset="0.105 0 0.12" rpy_offset="0 0.1 0"/>
+  <xacro:imu_sensor frame_id="IMU" parent="base_link" xyz_offset="0 0 0" rpy_offset="0 0 0"/>
 
   <!-- <link name="Mouth">
     <visual>

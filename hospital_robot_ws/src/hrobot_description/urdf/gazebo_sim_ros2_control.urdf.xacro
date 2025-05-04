@@ -257,7 +257,7 @@
     </gazebo>
 
     <!-- RGBD camera -->
-    <gazebo reference="RGBDCamera_link">
+    <gazebo reference="RGBD_Camera_link">
         <sensor name="rgbd_cam" type="rgbd_camera">
             <camera>
                 <horizontal_fov>1.5184</horizontal_fov>
@@ -271,15 +271,15 @@
                 </clip>
             </camera>
             <always_on>1</always_on>
-            <gz_frame_id>RGBDCamera_link</gz_frame_id>
-            <topic>scan</topic>
+            <gz_frame_id>RGBD_Camera_link</gz_frame_id>
+            <topic>cam</topic>
             <update_rate>15.0</update_rate>
             <visualize>true</visualize>
         </sensor>
     </gazebo>
 
-    <!-- Lidar sensor-->
-    <gazebo reference="LidarSensor_link">
+    <!-- Lidar sensor -->
+    <gazebo reference="Lidar_Sensor_link">
         <material>
             <ambient>'0.1 0.1 0.1 1'</ambient>
             <diffuse>'0.1 0.1 0.1 1'</diffuse>
@@ -311,7 +311,23 @@
                     <resolution>0.225</resolution>
                 </range>
             </ray>
-            <gz_frame_id>LidarSensor_link</gz_frame_id>
+            <gz_frame_id>Lidar_Sensor_link</gz_frame_id>
+        </sensor>
+    </gazebo>
+
+    <!-- IMU sensor -->
+    <gazebo reference="IMU_link">
+        <material>
+            <ambient>'0.1 0.1 0.1 1'</ambient>
+            <diffuse>'0.1 0.1 0.1 1'</diffuse>
+            <specular>'0.1 0.1 0.1 1'</specular>
+        </material>
+        <sensor name="imu_sensor" type="imu">
+            <topic>imu/data</topic>
+            <update_rate>15.0</update_rate>
+            <always_on>true</always_on>
+            <visualize>false</visualize>
+            <gz_frame_id>IMU_link</gz_frame_id>
         </sensor>
     </gazebo>
 
