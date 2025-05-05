@@ -61,7 +61,7 @@ def generate_launch_description():
         default_value='-1.57',
         description='yaw angle of initial orientation in radians')
 
-    gazebo_config_file = PathJoinSubstitution([
+    bridge_params = PathJoinSubstitution([
         FindPackageShare('hrobot_gazebo'), 
         'config',
         'ros_gz_bridge.yaml'])
@@ -104,7 +104,8 @@ def generate_launch_description():
         executable='parameter_bridge',
         name='gazebo_bridge',
         parameters=[{
-            'config_file': gazebo_config_file
+            'config_file': bridge_params,
+            'use_sim_time': True
         }],
         output='screen'
     )

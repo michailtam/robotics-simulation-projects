@@ -52,13 +52,6 @@
   gz_topic_name: "tf"
   ros_type_name: "tf2_msgs/msg/TFMessage"
   gz_type_name: "gz.msgs.Pose_V"
-  direction: ROS_TO_GZ
-
-# gz topic published by the RGBD-camera plugin
-- ros_topic_name: "cam/color/camera_info"
-  gz_topic_name: "cam/camera_info"
-  ros_type_name: "sensor_msgs/msg/CameraInfo"
-  gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
 
 # gz topic published by the Lidar plugin
@@ -68,15 +61,22 @@
   gz_type_name: "gz.msgs.LaserScan"
   direction: GZ_TO_ROS
 
+# # gz topic published by the RGBD-camera plugin
+# - ros_topic_name: "cam/color/camera_info"
+#   gz_topic_name: "cam/camera_info"
+#   ros_type_name: "sensor_msgs/msg/CameraInfo"
+#   gz_type_name: "gz.msgs.CameraInfo"
+#   direction: GZ_TO_ROS
+
 # - ros_topic_name: "scan/points"
 #   gz_topic_name: "scan/points"
 #   ros_type_name: "sensor_msgs/msg/PointCloud2"
 #   gz_type_name: "gz.msgs.PointCloudPacked"
 #   direction: GZ_TO_ROS
 
-# gz topic published by the IMU plugin
-- ros_topic_name: "imu/data"
-  gz_topic_name: "imu/data"
-  ros_type_name: "sensor_msgs/msg/Imu"
-  gz_type_name: "gz.msgs.IMU"
-  direction: GZ_TO_ROS
+# # gz topic published by the IMU plugin
+# - ros_topic_name: "imu/data"
+#   gz_topic_name: "imu/data"
+#   ros_type_name: "sensor_msgs/msg/Imu"
+#   gz_type_name: "gz.msgs.IMU"
+#   direction: GZ_TO_ROS

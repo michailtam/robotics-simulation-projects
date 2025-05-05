@@ -269,7 +269,7 @@
     </gazebo> -->
 
     <!-- RGBD camera -->
-    <gazebo reference="RGBD_Camera_link">
+    <!-- <gazebo reference="RGBD_Camera_link">
         <sensor name="rgbd_cam" type="rgbd_camera">
             <camera>
                 <horizontal_fov>1.5184</horizontal_fov>
@@ -288,11 +288,11 @@
             <update_rate>15.0</update_rate>
             <visualize>true</visualize>
         </sensor>
-    </gazebo>
+    </gazebo> -->
 
     <!-- Lidar sensor -->
     <gazebo reference="Lidar_Sensor_link">
-        <sensor name="gpu_lidar" type="gpu_lidar">
+        <sensor name="laser_sensor" type="gpu_lidar">
             <topic>scan</topic>
             <update_rate>10</update_rate>
             <always_on>true</always_on>
@@ -317,13 +317,13 @@
                     <max>25.0</max>
                     <resolution>0.225</resolution>
                 </range>
-                <frame_id>/Lidar_Sensor_link</frame_id>
             </lidar>
+            <gz_frame_id>Lidar_Sensor_link</gz_frame_id>
         </sensor>
     </gazebo>
 
     <!-- IMU sensor -->
-    <gazebo reference="IMU_link">
+    <!-- <gazebo reference="IMU_link">
         <material>
             <ambient>'0.1 0.1 0.1 1'</ambient>
             <diffuse>'0.1 0.1 0.1 1'</diffuse>
@@ -336,6 +336,6 @@
             <visualize>false</visualize>
             <gz_frame_id>IMU_link</gz_frame_id>
         </sensor>
-    </gazebo>
+    </gazebo> -->
 
 </robot>
