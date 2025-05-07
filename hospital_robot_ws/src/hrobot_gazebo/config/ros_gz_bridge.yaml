@@ -13,29 +13,29 @@
   direction: ROS_TO_GZ
 
 # gz topic published by Sensors plugin
-- ros_topic_name: "/cmd_vel"
-  gz_topic_name: "/model/pepper_robot/cmd_vel"
+- ros_topic_name: "cmd_vel"
+  gz_topic_name: "model/pepper_robot/cmd_vel"
   ros_type_name: "geometry_msgs/msg/Twist"
   gz_type_name: "gz.msgs.Twist"
   direction: ROS_TO_GZ
 
 # gz topic published by the JointTrajectory plugin
-- ros_topic_name: "/head_controller/joint_trajectory"
-  gz_topic_name: "/model/pepper_robot/head/JointTrajectory"
+- ros_topic_name: "head_controller/joint_trajectory"
+  gz_topic_name: "model/pepper_robot/head/JointTrajectory"
   ros_type_name: "trajectory_msgs/msg/JointTrajectory"
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ
 
 # gz topic published by the JointTrajectory plugin
-- ros_topic_name: "/lower_body_controller/joint_trajectory"
-  gz_topic_name: "/model/pepper_robot/lbody/JointTrajectory"
+- ros_topic_name: "lower_body_controller/joint_trajectory"
+  gz_topic_name: "model/pepper_robot/lbody/JointTrajectory"
   ros_type_name: "trajectory_msgs/msg/JointTrajectory"
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ
 
 # gz topic published by the JointTrajectory plugin
-- ros_topic_name: "/upper_body_controller/joint_trajectory"
-  gz_topic_name: "/model/pepper_robot/ubody/JointTrajectory"
+- ros_topic_name: "upper_body_controller/joint_trajectory"
+  gz_topic_name: "model/pepper_robot/ubody/JointTrajectory"
   ros_type_name: "trajectory_msgs/msg/JointTrajectory"
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ
@@ -54,25 +54,44 @@
   gz_type_name: "gz.msgs.Pose_V"
   direction: GZ_TO_ROS
 
-# gz topic published by the Lidar plugin
+# gz topic published by the 2D Lidar plugin
 - ros_topic_name: "scan"
   gz_topic_name: "scan"
   ros_type_name: "sensor_msgs/msg/LaserScan"
   gz_type_name: "gz.msgs.LaserScan"
   direction: GZ_TO_ROS
 
-# # gz topic published by the RGBD-camera plugin
-# - ros_topic_name: "cam/color/camera_info"
-#   gz_topic_name: "cam/camera_info"
-#   ros_type_name: "sensor_msgs/msg/CameraInfo"
-#   gz_type_name: "gz.msgs.CameraInfo"
-#   direction: GZ_TO_ROS
+# gz topic published by the 3D Lidar plugin
+- ros_topic_name: "scan/points"
+  gz_topic_name: "scan/points"
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
+  direction: GZ_TO_ROS
 
-# - ros_topic_name: "scan/points"
-#   gz_topic_name: "scan/points"
-#   ros_type_name: "sensor_msgs/msg/PointCloud2"
-#   gz_type_name: "gz.msgs.PointCloudPacked"
-#   direction: GZ_TO_ROS
+# gz topic published by the RGBD-camera plugins
+- ros_topic_name: "cam_1/depth_image"
+  gz_topic_name: "cam_1/depth_image"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "cam_1/points"
+  gz_topic_name: "cam_1/points"
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "cam_1/camera_info"
+  gz_topic_name: "cam_1/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "cam_1/image"
+  gz_topic_name: "cam_1/image"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
 
 # # gz topic published by the IMU plugin
 # - ros_topic_name: "imu/data"

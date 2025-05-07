@@ -80,10 +80,53 @@
   </joint>
 
   <xacro:lidar_sensor frame_id="Lidar_Sensor" parent="base_link" xyz_offset="0 0 0.07" rpy_offset="0 0 0"/>
-  <xacro:rgbd_camera camera_name="RGBD_Camera" parent="Head" xyz_offset="0.105 0 0.12" rpy_offset="0 0.1 0"/>
-  <xacro:imu_sensor frame_id="IMU" parent="base_link" xyz_offset="0 0 0" rpy_offset="0 0 0"/>
+  <xacro:rgbd_camera camera_name="RGBD_Camera" parent="base_link" xyz_offset="0.105 0 0.12" rpy_offset="0 0 0"/>
 
-  <!-- <link name="Mouth">
+  <link name='camera_link'>
+    <pose>0 0 0 0 0 0</pose>
+    <visual name='camera_link_visual'>
+      <origin xyz="0.013 0 0.07" rpy="1.57 0 1.57"/>
+      <geometry>
+        <mesh filename="file://$(find hrobot_description)/meshes/sensors/intel_realsense/d435.stl"/>
+      </geometry>
+      <material name="aluminum">
+          <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+    <collision name='collision'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size=".03 .03 .03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia
+          ixx="1e-6" ixy="0" ixz="0"
+          iyy="1e-6" iyz="0"
+          izz="1e-6"/>
+    </inertial>
+  </link>
+  <joint type="fixed" name="camera_joint">
+    <origin xyz="0.092 0 0.05" rpy="0 0 0"/>
+    <child link="camera_link"/>
+    <parent link="Head"/>
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <link name="camera_link_optical">
+  </link>
+
+  <joint type="fixed" name="camera_optical_joint">
+    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+    <child link="camera_link_optical"/>
+    <parent link="camera_link"/>
+  </joint>
+
+  <!-- <xacro:imu_sensor frame_id="IMU" parent="base_link" xyz_offset="0 0 0" rpy_offset="0 0 0"/> -->
+
+  <link name="Mouth">
     <visual>
       <geometry>
         <box size="0.038 0.04 0.017"/>
@@ -101,7 +144,7 @@
     <parent link="Head"/>
     <child link="Mouth"/>
     <origin rpy="0 0.4 0" xyz="0.08 0 0.06"/>
-  </joint> -->
+  </joint>
 
   <link name="Hip">
     <visual>

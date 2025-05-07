@@ -26,13 +26,13 @@ def generate_launch_description():
     # Declare the launch arguments
     declare_joint_state_pub_cmd = DeclareLaunchArgument(
         name='use_joint_state_pub',
-        default_value='false',
+        default_value='true',
         choices=['true', 'false'],
         description='Flag to enable the joint state publisher (without UI)')
     
     declare_joint_state_pub_gui_cmd = DeclareLaunchArgument(
         name='use_joint_state_pub_gui',
-        default_value='true',
+        default_value='false',
         choices=['true', 'false'],
         description='Flag to enable joint_state_publisher_gui')
 

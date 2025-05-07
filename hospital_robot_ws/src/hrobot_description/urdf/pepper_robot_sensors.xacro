@@ -4,9 +4,9 @@
 
     <xacro:property name="M_PI" value="3.1415926535897931" />
 
-    <!-- RGBD Camera -->
+    <!-- RGBD camera -->
     <xacro:macro name="rgbd_camera" params="
-        camera_name:='RGBD_Camera'
+        camera_name:='rgbd_camera'
         parent:='base_link'
         mesh_file:='file://$(find hrobot_description)/meshes/sensors/intel_realsense/d435.stl'
         xyz_offset:='0.105 0 0.05'
@@ -38,8 +38,14 @@
         iyz:=0.0
         izz:=0.003879257
         material_name:='aluminum'
-        material_color:='0.5 0.5 0.5 1'
+        material_color:='0.8 0.8 0.8 1'
+        horizontal_fov:=1.5184
+        image_width:=424
+        image_height:=240
+        clip_near:=0.05
+        clip_far:=1.5
         update_rate:=2
+        always_on:=1
         visualize:=true
         enable_collision:=false">
 
@@ -47,10 +53,11 @@
             <visual>
                 <origin xyz="${mesh_xyz_offset}" rpy="${mesh_rpy_offset}"/>
                 <geometry>
-                    <mesh filename="${mesh_file}" />
+                    <!-- <mesh filename="${mesh_file}" /> -->
+                    <box size=".03 .03 .03"/>
                 </geometry>
                 <material name="${material_name}">
-                <color rgba="${material_color}"/>
+                    <color rgba="${material_color}"/>
                 </material>
             </visual>
             <collision>
@@ -66,7 +73,6 @@
                         iyy="${iyy}" iyz="${iyz}" izz="${izz}" />
             </inertial>
         </link>
-
         <joint name="${camera_name}_joint" type="fixed">
             <parent link="${parent}"/>
             <child link="${camera_name}_link" />
@@ -207,7 +213,7 @@
     </xacro:macro>
 
     <!-- IMU sensor -->
-    <xacro:macro name="imu_sensor" params="
+    <!-- <xacro:macro name="imu_sensor" params="
         parent:='base_link'
         frame_id:='imu'
         xyz_offset:='0 0 0'
@@ -262,6 +268,6 @@
             <origin xyz="${xyz_offset}" rpy="${rpy_offset}"/>
         </joint>
 
-    </xacro:macro>
+    </xacro:macro> -->
 
 </robot>

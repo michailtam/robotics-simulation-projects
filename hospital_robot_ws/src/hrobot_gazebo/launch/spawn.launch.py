@@ -110,15 +110,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    # Includes optimizations to minimize latency and bandwidth when streaming image data
-    start_gazebo_ros_image_bridge_cmd = Node(
-        package='ros_gz_image',
-        executable='image_bridge',
-        arguments=['/cam/image'],
-        remappings=[
-            ('/cam/image', '/cam/color/image_raw')
-        ])
-
     # Create the launch description and populate
     ld = LaunchDescription()
 
@@ -132,6 +123,5 @@ def generate_launch_description():
     ld.add_action(gazebo_launch)
     ld.add_action(spawn_entity)
     ld.add_action(ros_gazebo_bridge)
-    ld.add_action(start_gazebo_ros_image_bridge_cmd)
 
     return ld
