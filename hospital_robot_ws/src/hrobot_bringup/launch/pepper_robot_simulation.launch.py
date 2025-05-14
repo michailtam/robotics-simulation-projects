@@ -34,7 +34,7 @@ def generate_launch_description():
             PathJoinSubstitution([
                 pkg_share_bringup, 
                 'launch', 
-                'load_ros2_controllers.launch.py']),
+                'controllers.launch.py']),
             ))
 
     # Return the full launch description
