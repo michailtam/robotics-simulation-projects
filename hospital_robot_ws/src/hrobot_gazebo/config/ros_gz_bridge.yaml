@@ -12,10 +12,17 @@
   gz_type_name: "gz.msgs.Model"
   direction: ROS_TO_GZ
 
+# gz topic published by the TF plugin
+- ros_topic_name: "tf"
+  gz_topic_name: "tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
 # gz topic published by Sensors plugin
-- ros_topic_name: "cmd_vel"
+- ros_topic_name: "diff_drive_controller/cmd_vel"
   gz_topic_name: "model/pepper_robot/cmd_vel"
-  ros_type_name: "geometry_msgs/msg/Twist"
+  ros_type_name: "geometry_msgs/msg/TwistStamped"
   gz_type_name: "gz.msgs.Twist"
   direction: ROS_TO_GZ
 
@@ -40,19 +47,12 @@
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ
 
-# gz topic published by the Odom plugin
-- ros_topic_name: "odom"
-  gz_topic_name: "odom"
-  ros_type_name: "nav_msgs/msg/Odometry"
-  gz_type_name: "gz.msgs.Odometry"
-  direction: GZ_TO_ROS
-
-# gz topic published by the TF plugin
-- ros_topic_name: "tf"
-  gz_topic_name: "tf"
-  ros_type_name: "tf2_msgs/msg/TFMessage"
-  gz_type_name: "gz.msgs.Pose_V"
-  direction: GZ_TO_ROS
+# # gz topic published by the Odom plugin (the meters moved from the starting point)
+# - ros_topic_name: "odom"
+#   gz_topic_name: "odom"
+#   ros_type_name: "nav_msgs/msg/Odometry"
+#   gz_type_name: "gz.msgs.Odometry"
+#   direction: GZ_TO_ROS
 
 # gz topic published by the 2D Lidar plugin
 - ros_topic_name: "scan"
