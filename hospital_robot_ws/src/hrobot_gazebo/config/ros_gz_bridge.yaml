@@ -47,12 +47,12 @@
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ
 
-# # gz topic published by the Odom plugin (the meters moved from the starting point)
-# - ros_topic_name: "odom"
-#   gz_topic_name: "odom"
-#   ros_type_name: "nav_msgs/msg/Odometry"
-#   gz_type_name: "gz.msgs.Odometry"
-#   direction: GZ_TO_ROS
+# gz topic published by the Odom plugin (the meters moved from the starting point)
+- ros_topic_name: "odom"
+  gz_topic_name: "odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
 
 # gz topic published by the 2D Lidar plugin
 - ros_topic_name: "scan"

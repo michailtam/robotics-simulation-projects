@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
+
+import os
 from launch import LaunchDescription
-from launch.actions import RegisterEventHandler
+from launch.substitutions import LaunchConfiguration
+from launch.actions import RegisterEventHandler, IncludeLaunchDescription
 from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
 
 
 class Controllers:
@@ -48,7 +52,7 @@ class Controllers:
 
 
 def generate_launch_description():
-
+    
     # Create the Controller class for the ros2 controller management
     ctrls = Controllers()
     controllers = ctrls.create_controllers()
@@ -59,14 +63,5 @@ def generate_launch_description():
     # Add the actions to the launch description in sequence
     for controller in controllers:
         ld.add_action(controller)
-
-    twist_to_stamped_node = Node(
-        package='hrobot_bringup',
-        executable='twist_to_stamped.py',
-        name='twist_to_stamped',
-        output='screen'
-    )
-
-    ld.add_action(twist_to_stamped_node)
 
     return ld

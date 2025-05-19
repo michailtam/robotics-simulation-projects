@@ -1286,11 +1286,12 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
   </link>
-  <joint name="WheelB" type="fixed">
+  <joint name="WheelB" type="continuous">
     <parent link="Tibia"/>
     <child link="WheelB_link"/>
     <origin rpy="0 0 0" xyz="-0.17 0 -0.264"/>
-    <!-- <axis xyz="0 1 0"/> -->
+    <dynamics damping="0.0001" friction="0.0"/>
+    <limit effort="0.0" velocity="100.0"/>
   </joint>
 
 </robot>

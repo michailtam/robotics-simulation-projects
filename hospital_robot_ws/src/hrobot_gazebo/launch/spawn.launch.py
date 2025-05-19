@@ -3,9 +3,10 @@ import os
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, TimerAction, DeclareLaunchArgument, AppendEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
-from launch_ros.substitutions import FindPackageShare
+from launch.substitutions import PathJoinSubstitution, LaunchConfiguration, Command
 from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+from ament_index_python.packages import get_package_share_directory
 
 
 def get_gazebo_model_path():
@@ -14,13 +15,15 @@ def get_gazebo_model_path():
 
 def generate_launch_description():
     # Files
-    pkg_share_gazebo = FindPackageShare(package='hrobot_gazebo').find('hrobot_gazebo')
-    pkg_ros_gz_sim = FindPackageShare('ros_gz_sim').find('ros_gz_sim')
-    world_path = os.path.join(pkg_share_gazebo, 'worlds', 'hospital.world')
+    pkg_share_gazebo = get_package_share_directory('hrobot_gazebo')
+    pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
     gazebo_models_path = get_gazebo_model_path()
     
     # Set the Gazebo model path
     set_env_vars_resources = AppendEnvironmentVariable('GZ_SIM_RESOURCE_PATH', gazebo_models_path)
+
+    # Set the launch configuration for the world
+    world_name = LaunchConfiguration('world_name')
 
     # Set the pose configuration variables
     x = LaunchConfiguration('x')
@@ -30,49 +33,56 @@ def generate_launch_description():
     pitch = LaunchConfiguration('pitch')
     yaw = LaunchConfiguration('yaw')
 
-    # Set default values
-    declare_x_pos_cmd = DeclareLaunchArgument(
+    # Set default launch arguments
+    declare_world_arg = DeclareLaunchArgument(
+        name="world_name",
+        default_value='hospital',
+        description='The world file to use')
+
+    declare_x_pos_arg = DeclareLaunchArgument(
         name='x',
         default_value='0.0',
         description='x-position')
 
-    declare_y_pos_cmd = DeclareLaunchArgument(
+    declare_y_pos_arg = DeclareLaunchArgument(
         name='y',
         default_value='3.0',
         description='y-position')
     
-    declare_z_pos_cmd = DeclareLaunchArgument(
+    declare_z_pos_arg = DeclareLaunchArgument(
         name='z',
         default_value='0.0',
         description='z-position')
 
-    declare_roll_cmd = DeclareLaunchArgument(
+    declare_roll_arg = DeclareLaunchArgument(
         name='roll',
         default_value='0.0',
         description='roll angle of initial orientation in radians')
 
-    declare_pitch_cmd = DeclareLaunchArgument(
+    declare_pitch_arg = DeclareLaunchArgument(
         name='pitch',
         default_value='0.0',
         description='pitch angle of initial orientation in radians')
 
-    declare_yaw_cmd = DeclareLaunchArgument(
+    declare_yaw_arg = DeclareLaunchArgument(
         name='yaw',
         default_value='-1.57',
         description='yaw angle of initial orientation in radians')
 
     bridge_params = PathJoinSubstitution([
-        FindPackageShare('hrobot_gazebo'), 
+        pkg_share_gazebo, 
         'config',
         'ros_gz_bridge.yaml'])
     
-    # Gazebo (Ignition/GZ) simulator launch
-    # Note: If the used world file does not contain a physics engine, add after the world_path the following plugin in code
-    # --physics-engine gz-physics-bullet-featherstone-plugin
+    # Gazebo simulator launch
+    world_path = Command(['echo ', pkg_share_gazebo, '/worlds/', world_name, '.world'])
+    
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments=[('gz_args', [f' -r -v 4 ', world_path])])
+        launch_arguments=[
+            ('gz_args', ['-r -v 4 ', world_path])
+        ])
         
     # Spawn the robot into the Gazebo simulation
     spawn_entity = TimerAction(
@@ -113,12 +123,13 @@ def generate_launch_description():
     # Create the launch description and populate
     ld = LaunchDescription()
 
-    ld.add_action(declare_x_pos_cmd)
-    ld.add_action(declare_y_pos_cmd)
-    ld.add_action(declare_z_pos_cmd)
-    ld.add_action(declare_roll_cmd)
-    ld.add_action(declare_pitch_cmd)
-    ld.add_action(declare_yaw_cmd)
+    ld.add_action(declare_world_arg)
+    ld.add_action(declare_x_pos_arg)
+    ld.add_action(declare_y_pos_arg)
+    ld.add_action(declare_z_pos_arg)
+    ld.add_action(declare_roll_arg)
+    ld.add_action(declare_pitch_arg)
+    ld.add_action(declare_yaw_arg)
     ld.add_action(set_env_vars_resources)
     ld.add_action(gazebo_launch)
     ld.add_action(spawn_entity)

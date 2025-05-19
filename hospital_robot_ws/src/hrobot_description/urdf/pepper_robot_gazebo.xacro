@@ -232,20 +232,25 @@
     </gazebo>
 
     <gazebo reference="WheelFL_link">
-        <mu1>0.8</mu1>
-        <mu2>0.8</mu2>
+        <mu1>0.0001</mu1>
+        <mu2>0.0001</mu2>
+        <kp>1000</kp>
+        <kd>10</kd>
     </gazebo>
 
     <gazebo reference="WheelFR_link">
-        <mu1>0.8</mu1>
-        <mu2>0.8</mu2>
+        <mu1>0.0001</mu1>
+        <mu2>0.0001</mu2>
+        <kp>1000</kp>
+        <kd>10</kd>
     </gazebo>
 
     <gazebo reference="WheelB_link">
-        <mu1>0.5</mu1>
-        <mu2>0.5</mu2>
-        <kp>1000000</kp>
-        <kd>1000</kd>
+        <!-- Friction parameters: set to near zero -->
+        <mu1>0.0001</mu1>
+        <mu2>0.0001</mu2>
+        <kp>1000</kp>   <!-- lower contact stiffness -->
+        <kd>10</kd>   <!-- lower contact damping -->
     </gazebo>
 
     <!-- Enables the communication with ros2_control -->

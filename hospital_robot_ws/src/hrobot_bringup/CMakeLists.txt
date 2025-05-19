@@ -16,7 +16,7 @@ install(
 )
 
 install(PROGRAMS
-  scripts/twist_to_stamped.py
+  scripts/twist_relay.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
