@@ -21,28 +21,28 @@
 
 # gz topic published by Sensors plugin
 - ros_topic_name: "diff_drive_controller/cmd_vel"
-  gz_topic_name: "model/pepper_robot/cmd_vel"
+  gz_topic_name: "model/hospibot/cmd_vel"
   ros_type_name: "geometry_msgs/msg/TwistStamped"
   gz_type_name: "gz.msgs.Twist"
   direction: ROS_TO_GZ
 
 # gz topic published by the JointTrajectory plugin
 - ros_topic_name: "head_controller/joint_trajectory"
-  gz_topic_name: "model/pepper_robot/head/JointTrajectory"
+  gz_topic_name: "model/hospibot/head/JointTrajectory"
   ros_type_name: "trajectory_msgs/msg/JointTrajectory"
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ
 
 # gz topic published by the JointTrajectory plugin
 - ros_topic_name: "lower_body_controller/joint_trajectory"
-  gz_topic_name: "model/pepper_robot/lbody/JointTrajectory"
+  gz_topic_name: "model/hospibot/lbody/JointTrajectory"
   ros_type_name: "trajectory_msgs/msg/JointTrajectory"
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ
 
 # gz topic published by the JointTrajectory plugin
 - ros_topic_name: "upper_body_controller/joint_trajectory"
-  gz_topic_name: "model/pepper_robot/ubody/JointTrajectory"
+  gz_topic_name: "model/hospibot/ubody/JointTrajectory"
   ros_type_name: "trajectory_msgs/msg/JointTrajectory"
   gz_type_name: "gz.msgs.JointTrajectory"
   direction: ROS_TO_GZ

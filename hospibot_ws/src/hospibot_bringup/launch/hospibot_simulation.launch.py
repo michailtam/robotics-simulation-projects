@@ -1,7 +1,5 @@
-import os
-
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, RegisterEventHandler
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
@@ -9,8 +7,8 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     # Paths of the shared packages and files
-    pkg_share_bringup = FindPackageShare(package='hrobot_bringup').find('hrobot_bringup')
-    pkg_share_gazebo = FindPackageShare(package='hrobot_gazebo').find('hrobot_gazebo')
+    pkg_share_bringup = FindPackageShare(package='hospibot_bringup').find('hospibot_bringup')
+    pkg_share_gazebo = FindPackageShare(package='hospibot_gazebo').find('hospibot_gazebo')
     
     # Executes the robot state publisher, joint state publisher and rviz 
     launch_robot = IncludeLaunchDescription(
@@ -18,7 +16,7 @@ def generate_launch_description():
             PathJoinSubstitution([
                 pkg_share_bringup,
                 'launch',
-                'pepper_robot.launch.py'])))
+                'hospibot.launch.py'])))
 
     # Spawns the robot in Gazebo 
     spawn_robot_gazebo = IncludeLaunchDescription(

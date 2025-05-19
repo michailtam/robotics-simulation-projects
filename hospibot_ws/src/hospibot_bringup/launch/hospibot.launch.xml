@@ -1,5 +1,5 @@
 <launch>
-    <let name="urdf_path" value="$(find-pkg-share hrobot_description)/urdf/pepper_robot.urdf.xacro" />
+    <let name="urdf_path" value="$(find-pkg-share hospibot_description)/urdf/hospibot.urdf.xacro" />
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
     </node>

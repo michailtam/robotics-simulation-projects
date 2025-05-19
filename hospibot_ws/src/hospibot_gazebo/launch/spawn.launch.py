@@ -5,17 +5,16 @@ from launch.actions import IncludeLaunchDescription, TimerAction, DeclareLaunchA
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution, LaunchConfiguration, Command
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
 from ament_index_python.packages import get_package_share_directory
 
 
 def get_gazebo_model_path():
     ''' Return the package model path (not the shared one, because this does not work) '''
-    return os.path.join(os.getcwd(), "src", "hrobot_gazebo", "models")
+    return os.path.join(os.getcwd(), "src", "hospibot_gazebo", "models")
 
 def generate_launch_description():
     # Files
-    pkg_share_gazebo = get_package_share_directory('hrobot_gazebo')
+    pkg_share_gazebo = get_package_share_directory('hospibot_gazebo')
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
     gazebo_models_path = get_gazebo_model_path()
     

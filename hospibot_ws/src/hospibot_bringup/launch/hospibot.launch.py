@@ -10,32 +10,29 @@ from launch.actions import DeclareLaunchArgument
 
 def generate_launch_description():
     # Paths
-    pkg_share_description = FindPackageShare(package='hrobot_description').find('hrobot_description')
-    pkg_share_bringup = FindPackageShare(package='hrobot_bringup').find('hrobot_bringup')
-    default_urdf_file = os.path.join(pkg_share_description, 'urdf', 'pepper_robot.urdf.xacro')
+    pkg_share_description = FindPackageShare(package='hospibot_description').find('hospibot_description')
+    pkg_share_bringup = FindPackageShare(package='hospibot_bringup').find('hospibot_bringup')
+    default_urdf_file = os.path.join(pkg_share_description, 'urdf', 'hospibot.urdf.xacro')
     default_rviz_config_file = os.path.join(pkg_share_bringup, 'rviz', 'urdf_config.rviz')
 
     # Generate robot description from xacro
     robot_description = ParameterValue(Command(['xacro ', default_urdf_file]), value_type=str)
 
     # Launch configuration variables
-    use_joint_state_pub_gui = LaunchConfiguration('use_joint_state_pub_gui')
-    use_joint_state_pub = LaunchConfiguration('use_joint_state_pub')
     rviz_config_file = LaunchConfiguration('rviz_config_file')
-    # urdf_model = LaunchConfiguration('urdf_model')
     use_rviz = LaunchConfiguration('use_rviz')
     use_sim_time = LaunchConfiguration('use_sim_time')
 
     # Declare the launch arguments
     declare_joint_state_pub_cmd = DeclareLaunchArgument(
         name='use_joint_state_pub',
-        default_value='false',
+        default_value='true',
         choices=['true', 'false'],
         description='Flag to enable the joint state publisher (without UI)')
     
     declare_joint_state_pub_gui_cmd = DeclareLaunchArgument(
         name='use_joint_state_pub_gui',
-        default_value='true',
+        default_value='false',
         choices=['true', 'false'],
         description='Flag to enable joint_state_publisher_gui')
 
@@ -71,22 +68,6 @@ def generate_launch_description():
             'use_sim_time': use_sim_time
             }])
 
-    # Joint state publisher
-    joint_state_publisher_node = Node(
-        package="joint_state_publisher",
-        executable="joint_state_publisher",
-        name='joint_state_publisher',
-        output='screen',
-        condition=IfCondition(use_joint_state_pub))
-
-    # Joint state publisher GUI
-    joint_state_publisher_node_gui = Node(
-        package="joint_state_publisher_gui",
-        executable="joint_state_publisher_gui",
-        name='joint_state_publisher_gui',
-        output='screen',
-        condition=IfCondition(use_joint_state_pub_gui))
-
     # RViz2 visualization
     rviz2_node = Node(
         package="rviz2",
@@ -106,8 +87,6 @@ def generate_launch_description():
     ld.add_action(declare_rviz_config_file_cmd)
     ld.add_action(declare_urdf_model_cmd)
     ld.add_action(robot_state_publisher_node)
-    ld.add_action(joint_state_publisher_node)
-    ld.add_action(joint_state_publisher_node_gui)
     ld.add_action(rviz2_node)
 
     return ld

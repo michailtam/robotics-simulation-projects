@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot name="pepper_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="hospibot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <ros2_control name="hospital_robot_hardware_interface" type="system">
+    <ros2_control name="hospibot_hardware_interface" type="system">
         <hardware>
             <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </hardware>

@@ -2,8 +2,7 @@
 
 import os
 from launch import LaunchDescription
-from launch.substitutions import LaunchConfiguration
-from launch.actions import RegisterEventHandler, IncludeLaunchDescription
+from launch.actions import RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -63,5 +62,15 @@ def generate_launch_description():
     # Add the actions to the launch description in sequence
     for controller in controllers:
         ld.add_action(controller)
+
+    # Transforms the Twist message to TwistStamped message
+    twist_to_stamped_node = Node(
+        package='hospibot_bringup',
+        executable='twist_relay.py',
+        name='twist_relay',
+        output='screen'
+    )
+
+    ld.add_action(twist_to_stamped_node)
 
     return ld

@@ -256,7 +256,7 @@
     <!-- Enables the communication with ros2_control -->
     <gazebo>
         <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
-            <parameters>$(find hrobot_bringup)/config/controllers.yaml</parameters>
+            <parameters>$(find hospibot_bringup)/config/controllers.yaml</parameters>
             <controller_manager_node_name>controller_manager</controller_manager_node_name>
         </plugin>
     </gazebo>
